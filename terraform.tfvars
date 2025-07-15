@@ -45,7 +45,27 @@ runbooks = [
     schedule_start_time  = "2025-07-16T06:00:00Z"
     schedule_description = "Daily listing of VMs"
     parameters = {
-      ResourceGroupName = "my-resource-group"
+      resourcegroupname = "my-resource-group"
+    }
+  }
+]
+
+runbooks2 = [
+  {
+    name                 = "ListVMs"
+    description          = "List all VMs in a resource group"
+    runbook_type         = "Python3"
+    file_path            = "scripts/list_azure_vms.py1"
+    log_verbose          = true
+    log_progress         = true
+    schedule_name        = "list-vms-daily"
+    schedule_frequency   = "Day"
+    schedule_interval    = 1
+    schedule_timezone    = "UTC"
+    schedule_start_time  = "2025-07-16T06:00:00Z"
+    schedule_description = "Daily listing of VMs"
+    parameters = {
+      resourcegroupname = "my-resource-group"
     }
   }
 ]
