@@ -19,7 +19,7 @@ runbook_description              = "Example PowerShell runbook"
 runbook_type                     = "PowerShell"
 runbook_log_verbose              = true
 runbook_log_progress             = true
-runbook_file_path                = ""
+runbook_file_path                = "scripts/List-AzVMs.ps1"
 runbook_parameters               = {}  # Optional: e.g. { "param1" = "value1" }
 
 # Schedule
