@@ -1,0 +1,11 @@
+# Terraform state
+terraform.tfstate
+terraform.tfstate.backup
+
+# Terraform CLI cache and lock files
+.terraform/
+.terraform.lock.hcl
+crash.log
+
+# Optional: ignore plan files
+*.tfplan

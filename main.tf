@@ -1,7 +1,7 @@
 provider "azurerm" {
   features {}
+  subscription_id = "50a1390f-363e-4a28-aa4f-941af322a11c"
 }
-
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.resource_group_location
@@ -21,11 +21,11 @@ resource "azurerm_automation_account" "auto-account" {
     identity_ids = var.identity_ids
   }
 
-  encryption {
-    key_vault_key_id              = var.key_vault_key_id
-    user_assigned_identity_id     = var.encryption_user_assigned_identity_id
-  }
-}
+  # encryption {
+  #   key_vault_key_id              = var.key_vault_key_id
+  #   user_assigned_identity_id     = var.encryption_user_assigned_identity_id
+  # }
+ }
 
 resource "azurerm_automation_runbook" "runbook" {
   for_each                = { for rb in var.runbooks : rb.name => rb }
@@ -39,9 +39,9 @@ resource "azurerm_automation_runbook" "runbook" {
   runbook_type            = each.value.runbook_type
   content                 = file(each.value.file_path)
 
-  publish_content_link {
-    uri = null
-  }
+#   publish_content_link {
+#     uri = null
+#     }
 }
 resource "azurerm_automation_schedule" "schedule" {
   for_each                = { for rb in var.runbooks : rb.name => rb }
@@ -58,7 +58,7 @@ resource "azurerm_automation_job_schedule" "job-schedule" {
   for_each                = { for rb in var.runbooks : rb.name => rb }
   resource_group_name     = azurerm_resource_group.rg.name
   automation_account_name = azurerm_automation_account.auto-account.name
-  schedule_name           = azurerm_automation_schedule.schedule.name
-  runbook_name            = azurerm_automation_runbook.runbook.name
-  parameters              = each.value.parameters
+  schedule_name           = azurerm_automation_schedule.schedule[each.key].name
+  runbook_name            = azurerm_automation_runbook.runbook[each.key].name
+  # parameters              = each.value.parameters
 }
