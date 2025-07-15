@@ -1,7 +1,7 @@
 # Resource Group & Automation Account
-resource_group_name              = "example-resources"
+resource_group_name              = "automation"
 resource_group_location          = "West Europe"
-automation_account_name          = "example-account"
+automation_account_name          = "dev-account"
 sku_name                         = "Basic"
 tags = {
   environment = "development"
