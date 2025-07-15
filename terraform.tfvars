@@ -1,0 +1,31 @@
+# Resource Group & Automation Account
+resource_group_name              = "example-resources"
+resource_group_location          = "West Europe"
+automation_account_name          = "example-account"
+sku_name                         = "Basic"
+tags = {
+  environment = "development"
+}
+public_network_access_enabled    = true
+local_authentication_enabled     = true
+identity_type                    = "SystemAssigned"
+identity_ids                     = []  # Add identity IDs if using UserAssigned or SystemAssigned, UserAssigned
+key_vault_key_id                 = null
+encryption_user_assigned_identity_id = null
+
+# Runbook
+runbook_name                     = "example-runbook"
+runbook_description              = "Example PowerShell runbook"
+runbook_type                     = "PowerShell"
+runbook_log_verbose              = true
+runbook_log_progress             = true
+runbook_file_path                = ""
+runbook_parameters               = {}  # Optional: e.g. { "param1" = "value1" }
+
+# Schedule
+schedule_name                    = "example-schedule"
+schedule_frequency               = "Hour"        # Valid: OneTime, Day, Hour, Minute, Week, Month
+schedule_interval                = 1
+schedule_timezone                = "UTC"
+schedule_start_time              = "2025-07-15T10:00:00Z"
+schedule_description             = "Hourly schedule for runbook"
