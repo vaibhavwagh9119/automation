@@ -146,21 +146,3 @@ variable "runbooks" {
   }))
 }
 
-variable "runbooks2" {
-  description = "List of runbooks with individual configuration"
-  type = list(object({
-    name                 = string
-    description          = string
-    runbook_type         = string
-    file_path            = string
-    log_verbose          = bool
-    log_progress         = bool
-    schedule_name        = string
-    schedule_frequency   = string
-    schedule_interval    = number
-    schedule_timezone    = string
-    schedule_start_time  = string
-    schedule_description = string
-    parameters           = map(string)
-  }))
-}

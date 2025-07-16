@@ -28,7 +28,7 @@ resource "azurerm_automation_account" "auto-account" {
  }
 
 resource "azurerm_automation_runbook" "runbook" {
-  for_each                = { for rb in var.runbooks2 : rb.name => rb }
+  for_each                = { for rb in var.runbooks : rb.name => rb }
   name                    = each.value.name
   location                = azurerm_automation_account.auto-account.location
   resource_group_name     = azurerm_resource_group.rg.name
@@ -44,7 +44,7 @@ resource "azurerm_automation_runbook" "runbook" {
     }
 }
 resource "azurerm_automation_schedule" "schedule" {
-  for_each                = { for rb in var.runbooks2 : rb.name => rb }
+  for_each                = { for rb in var.runbooks : rb.name => rb }
   name                    = each.value.schedule_name
   resource_group_name     = azurerm_resource_group.rg.name
   automation_account_name = azurerm_automation_account.auto-account.name
@@ -55,7 +55,7 @@ resource "azurerm_automation_schedule" "schedule" {
   description             = each.value.schedule_description
 }
 resource "azurerm_automation_job_schedule" "job-schedule" {
-  for_each                = { for rb in var.runbooks2 : rb.name => rb }
+  for_each                = { for rb in var.runbooks : rb.name => rb }
   resource_group_name     = azurerm_resource_group.rg.name
   automation_account_name = azurerm_automation_account.auto-account.name
   schedule_name           = azurerm_automation_schedule.schedule[each.key].name
