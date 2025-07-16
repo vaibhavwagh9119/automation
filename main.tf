@@ -39,9 +39,9 @@ resource "azurerm_automation_runbook" "runbook" {
   runbook_type            = each.value.runbook_type
   content                 = file(each.value.file_path)
 
-  publish_content_link {
-    uri = "https://github.com/kdev/automation/blob/main/scripts/List-AzVMs.ps1"
-    }
+  # publish_content_link {
+  #   uri = "https://github.com/kdev/automation/blob/main/scripts/List-AzVMs.ps1"
+  #   }
 }
 resource "azurerm_automation_schedule" "schedule" {
   for_each                = { for rb in var.runbooks : rb.name => rb }
