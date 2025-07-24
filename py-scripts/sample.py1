@@ -1,0 +1,23 @@
+import os
+from azure.identity import DefaultAzureCredential
+from azure.mgmt.compute import ComputeManagementClient
+
+def list_virtual_machines():
+    subscription_id = os.environ["AZURE_SUBSCRIPTION_ID"]  # set as environment variable or use default
+
+    # Authenticate using the managed identity
+    credential = DefaultAzureCredential()
+    compute_client = ComputeManagementClient(credential, subscription_id)
+
+    print("Listing virtual machines:")
+    for vm in compute_client.virtual_machines.list_all():
+        print(f"VM Name: {vm.name}, Location: {vm.location}, Resource Group: {vm.id.split('/')[4]}")
+
+def main():
+    try:
+        list_virtual_machines()
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+
+if __name__ == "__main__":
+    main()

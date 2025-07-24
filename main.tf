@@ -18,7 +18,6 @@ resource "azurerm_automation_account" "auto-account" {
 
   identity {
     type         = var.identity_type
-    identity_ids = var.identity_ids
   }
 
   # encryption {
@@ -26,6 +25,12 @@ resource "azurerm_automation_account" "auto-account" {
   #   user_assigned_identity_id     = var.encryption_user_assigned_identity_id
   # }
  }
+resource "azurerm_role_assignment" "automation_vm_contributor" {
+  scope                = azurerm_resource_group.rg.id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_automation_account.auto-account.identity[0].principal_id
+}
+
 
 resource "azurerm_automation_runbook" "runbook" {
   for_each                = { for rb in var.runbooks : rb.name => rb }
